@@ -12,13 +12,21 @@ namespace BrowserChat.Hubs
     {
         public async Task SendMessage(string user, string message)
         {
+            string resultMessage = message;
+     
+            int firstStringPosition = message.IndexOf("/stock=") + 7;
+            resultMessage = message.Substring(firstStringPosition, message.Length- firstStringPosition);
 
-            //try
-            //{
-            //    //CSVParser.PraseCSV().Where()
-            //}
-            
-            await Clients.All.SendAsync("ReceiveMessage", "BOT", message);
+            if (!String.IsNullOrEmpty(resultMessage))
+            {
+                resultMessage = CSVParser.GetMessage(resultMessage);
+            }
+            else
+            {
+                resultMessage = "Sorry I cannot process your stock_code command";
+            }
+
+            await Clients.All.SendAsync("ReceiveMessage", "BOT", resultMessage);
         }
 
     }

@@ -14,6 +14,10 @@ connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
     li.textContent = encodedMsg;
     document.getElementById("messagesList").appendChild(li);
+    if (document.getElementById("messagesList").childElementCount >= 50) {
+        var list = document.getElementById("messagesList");
+        list.removeChild(list.childNodes[0]);
+    }
 });
 
 connection.start().then(function () {
@@ -25,10 +29,14 @@ connection.start().then(function () {
 connectionBot.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    var encodedMsg = user + " says " + msg;
+    var encodedMsg = user + " says " + msg ;
     var li = document.createElement("li");
     li.textContent = encodedMsg;
     document.getElementById("messagesList").appendChild(li);
+    if (document.getElementById("messagesList").childElementCount >= 50) {
+        var list = document.getElementById("messagesList");
+        list.removeChild(list.childNodes[0]);
+    }
 });
 
 connectionBot.start().then(function () {
