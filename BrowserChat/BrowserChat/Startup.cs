@@ -67,6 +67,7 @@ namespace BrowserChat
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHub<ChatBotHub>("/chatBotHub");
             });
         }
     }
