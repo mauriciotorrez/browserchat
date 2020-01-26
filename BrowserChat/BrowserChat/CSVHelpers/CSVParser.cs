@@ -9,20 +9,20 @@ namespace BrowserChat.CSVHelpers
 {
     public static class CSVParser
     {
-        public static IEnumerable<Aapl> PraseCSV()
+        public static IEnumerable<Aapl> PraseCSV(string path)
         {
-            TextReader reader = new StreamReader("Resources/aapl.us.csv");
+            TextReader reader = new StreamReader(path);
             var csvReader = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
             var records = csvReader.GetRecords<Aapl>();
             return records.ToList();
         }
 
-        public static string GetMessage(string stock_code)
+        public static string GetMessage(string stock_code, string path)
         {
             string result = "Something wrong in your stock_code";
             try
             {
-                var row = PraseCSV().Where(txt => txt.Symbol.Equals(stock_code, StringComparison.CurrentCultureIgnoreCase));
+                var row = PraseCSV(path).Where(txt => txt.Symbol.Equals(stock_code, StringComparison.CurrentCultureIgnoreCase));
                 if (row != null && row.Count() > 0)
                 {
                     result = InterpretMessage(row.First());

@@ -19,7 +19,7 @@ namespace BrowserChat.Hubs
 
             if (!String.IsNullOrEmpty(resultMessage))
             {
-                resultMessage = CSVParser.GetMessage(resultMessage);
+                resultMessage = CSVParser.GetMessage(resultMessage, "Resources/aapl.us.csv");
             }
             else
             {
